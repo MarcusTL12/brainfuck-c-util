@@ -1,3 +1,8 @@
+#ifndef __bigint__
+#define __bigint__
+
+#include "memory.h"
+
 // Structure of bigint:
 // Each byte is treated as one 7-bit part of the number
 // using the 8th bit as the carry bit.
@@ -36,8 +41,9 @@ void bigint_add_small(int[] a, int b, int n) {
     }
 
     int i = 1;
+    bool done = false;
 
-    while (i < n) {
+    while (!done && i < n) {
         if (carry) {
             a[i] = a[i] + 1;
         }
@@ -45,8 +51,34 @@ void bigint_add_small(int[] a, int b, int n) {
         carry = a[i] > 127;
         if (carry) {
             a[i] = a[i] - 128;
+        } else {
+            done = true;
         }
 
         i = i + 1;
     }
 }
+
+// Parse string of length len into n-byte bigint a.
+// An n-byte bigint b is needed for buffer space.
+void bigint_parse(int[] str, int len, int[] a, int[] b, int n) {
+    int i = 0;
+
+    while (i < len) {
+        int d = str[i] - '0';
+
+        memcpy(b, a, n);
+
+        int j = 0;
+        while (j < 9) {
+            bigint_add(a, b, n);
+            j = j + 1;
+        }
+
+        bigint_add_small(a, d, n);
+
+        i = i + 1;
+    }
+}
+
+#endif
