@@ -1,3 +1,6 @@
+#ifndef __util__
+#define __util__
+
 int read_string_delim(int[] s, int delim) {
     int i = 0;
     int c = read_char();
@@ -26,6 +29,7 @@ void write_string_n(int[] s, int n) {
     }
 }
 
+// Return r / d, leave r % d in r
 int divrem(int[] r, int d) {
     int q = 0;
 
@@ -62,3 +66,5 @@ void write_dec(int n) {
 
     write_char('0' + buf[0]);
 }
+
+#endif

@@ -13,4 +13,10 @@ void memcpy(int[] dest, int[] src, int n) {
     }
 }
 
+void invert(int[] s, int n) {
+    for(int i = 0; , i < n, i = i + 1;) {
+        s[i] = -(s[i] + 1);
+    }
+}
+
 #endif
