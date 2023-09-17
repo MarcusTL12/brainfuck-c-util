@@ -190,6 +190,35 @@ int bigint_divrem_small(int[] a, int d, int n) {
     return r[1];
 }
 
-void bigint_write(int[] a, int n) {}
+bool bigint_eq_small(int[] a, int b, int n) {
+    bool iseq = a[0] == b;
+
+    int i = 1;
+    while (iseq && i < n) {
+        iseq = iseq && a[i] == 0;
+        i = i + 1;
+    }
+
+    return iseq;
+}
+
+void bigint_write(int[] a, int[] buf, int n) {
+    int nd = 0;
+
+    bool iszero = bigint_eq_small(a, 0, n);
+
+    while (!iszero) {
+        buf[nd] = bigint_divrem_small(a, 10, n);
+        nd = nd + 1;
+        iszero = bigint_eq_small(a, 0, n);
+    }
+
+    int i = nd - 1;
+
+    while (i != 255) {
+        write_char('0' + buf[i]);
+        i = i - 1;
+    }
+}
 
 #endif
