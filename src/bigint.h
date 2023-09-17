@@ -169,6 +169,27 @@ int divrem_int2_reduced(int[] a, int d) {
     return ans;
 }
 
+// Divide n-byte integer a by 7 bit unsigned int b
+// Quotient is stored in a, and the remainder r is returned
+int bigint_divrem_small(int[] a, int d, int n) {
+    int i = n - 1;
+
+    int r[] = {0, 0};
+
+    while (i != 255) {
+        r[0] = a[i];
+
+        int q = divrem_int2_reduced(r, d);
+
+        a[i] = q;
+        r[1] = r[0];
+
+        i = i - 1;
+    }
+
+    return r[1];
+}
+
 void bigint_write(int[] a, int n) {}
 
 #endif
