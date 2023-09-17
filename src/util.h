@@ -1,13 +1,16 @@
 #ifndef __util__
 #define __util__
 
+// Read from stdin until delim or a zero byte is found.
+// Returns length of string. Delim or zero byte is stored in s[len]
 int read_string_delim(int[] s, int delim) {
     int i = 0;
     int c = read_char();
-    while (c != delim) {
-        s[i] = c;
-        c = read_char();
+    s[i] = c;
+    while (c != delim && c != 0) {
         i = i + 1;
+        c = read_char();
+        s[i] = c;
     }
 
     return i;

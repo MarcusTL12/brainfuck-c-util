@@ -202,7 +202,7 @@ bool bigint_eq_small(int[] a, int b, int n) {
     return iseq;
 }
 
-void bigint_write(int[] a, int[] buf, int n) {
+void bigint_write_consume(int[] a, int[] buf, int n) {
     int nd = 0;
 
     bool iszero = bigint_eq_small(a, 0, n);
@@ -219,6 +219,41 @@ void bigint_write(int[] a, int[] buf, int n) {
         write_char('0' + buf[i]);
         i = i - 1;
     }
+
+    if (nd == 0) {
+        write_char('0');
+    }
+}
+
+void bigint_write(int[] a, int[] buf, int[] digitbuf, int n) {
+    memcpy(buf, a, n);
+    bigint_write_consume(buf, digitbuf, n);
+}
+
+// Compare unsigned bigints.
+// Return integer with same sign as a - b and absolute value equal to 1.
+// So:
+//  0 if a == b
+//  1 if a > b
+// -1 if a < b
+int bigint_cmp(int[] a, int[] b, int n) {
+    int i = n - 1;
+
+    int ans = 0;
+
+    while (ans == 0 && i != -1) {
+        if (a[i] > b[i]) {
+            ans = 1;
+        } else {
+            if (a[i] < b[i]) {
+                ans = -1;
+            }
+        }
+
+        i = i - 1;
+    }
+
+    return ans;
 }
 
 #endif

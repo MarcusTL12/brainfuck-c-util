@@ -19,3 +19,6 @@ with open("tmp.c", "w") as out:
 os.remove("prep.c")
 subprocess.run("c2bf.native -O=3 tmp.c", shell=True)
 os.remove("tmp.c")
+
+with open("a.bf") as f:
+    print(f"BF length: {len(f.read())}")
