@@ -70,4 +70,20 @@ void write_dec(int n) {
     write_char('0' + buf[0]);
 }
 
+int max(int a, int b) {
+    if (b > a) {
+        a = b;
+    }
+
+    return a;
+}
+
+int min(int a, int b) {
+    if (b < a) {
+        a = b;
+    }
+
+    return a;
+}
+
 #endif
