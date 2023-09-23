@@ -70,6 +70,20 @@ void write_dec(int n) {
     write_char('0' + buf[0]);
 }
 
+int parse_int(int[] s, int n) {
+    int x = 0;
+    int i = 0;
+
+    while (i < n) {
+        x = x * 10;
+        x = x + (s[i] - '0');
+
+        i = i + 1;
+    }
+
+    return x;
+}
+
 int max(int a, int b) {
     if (b > a) {
         a = b;
